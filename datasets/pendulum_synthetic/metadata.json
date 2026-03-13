@@ -1,0 +1,34 @@
+{
+  "system": "simple_pendulum",
+  "description": "Synthetic pendulum dataset generated from MechanicsDSL forward simulation. Clean and Gaussian-noisy trajectories included.",
+  "ground_truth": {
+    "m": 1.0,
+    "l": 0.5,
+    "g": 9.81
+  },
+  "initial_conditions": {
+    "theta_0_rad": 0.5,
+    "omega_0_rad_s": 0.0
+  },
+  "noise_model": {
+    "type": "gaussian",
+    "sigma": 0.01,
+    "unit": "rad"
+  },
+  "sample_rate_hz": 100,
+  "duration_s": 10.0,
+  "n_observations": 1001,
+  "integrator": "RK45",
+  "tolerances": {
+    "rtol": 1e-10,
+    "atol": 1e-12
+  },
+  "random_seed": 42,
+  "files": {
+    "data.csv": "Human-readable time series (clean + noisy columns)",
+    "data.hdf5": "Full-precision HDF5 with embedded metadata attributes"
+  },
+  "dsl_specification": "pendulum_synthetic.msl",
+  "generated_by": "MechanicsDSL v2.0 \u2014 github.com/MechanicsDSL",
+  "doi": "10.5281/zenodo.17771040"
+}
