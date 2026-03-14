@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mechanicsdsl-datasets"
+version = "0.1.0"
+description = "Reference physics datasets for MechanicsDSL parameter estimation and inverse problem benchmarking"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+  { name = "Noah Parsons", email = "nomapa223@gmail.com" }
+]
+keywords = [
+  "physics", "mechanics", "datasets", "parameter estimation",
+  "inverse problems", "scientific computing", "MechanicsDSL"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Education",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Physics",
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
+requires-python = ">=3.9"
+dependencies = [
+  "numpy>=1.24",
+  "scipy>=1.10",
+  "pandas>=2.0",
+  "h5py>=3.8",
+]
+
+[project.optional-dependencies]
+estimation = [
+  "mechanicsdsl-core",
+]
+dev = [
+  "pytest>=7.0",
+  "pytest-cov",
+  "ruff",
+]
+
+[project.urls]
+Homepage = "https://github.com/MechanicsDSL/mechanicsdsl-datasets"
+Documentation = "https://mechanicsdsl.readthedocs.io"
+Repository = "https://github.com/MechanicsDSL/mechanicsdsl-datasets"
+"Bug Tracker" = "https://github.com/MechanicsDSL/mechanicsdsl-datasets/issues"
+DOI = "https://doi.org/10.5281/zenodo.17771040"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mechanicsdsl_datasets"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "src/",
+  "datasets/",
+  "README.md",
+  "LICENSE",
+  "CITATION.cff",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
