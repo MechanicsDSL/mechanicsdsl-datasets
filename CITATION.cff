@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use these datasets in your research, please cite:"
+type: dataset
+title: "MechanicsDSL Physics Datasets"
+abstract: >
+  Reference datasets for physics parameter estimation and inverse problem
+  benchmarking. Includes synthetic datasets with known ground-truth parameters
+  generated from MechanicsDSL forward simulations with Gaussian observation noise.
+authors:
+  - family-names: Parsons
+    given-names: Noah
+    orcid: "https://orcid.org/0009-0000-7224-6040"
+    affiliation: "American Forge Institute & Eastern Wyoming College"
+repository-code: "https://github.com/MechanicsDSL/mechanicsdsl-datasets"
+license: MIT
+date-released: "2026-03-13"
+references:
+  - type: software
+    title: "MechanicsDSL"
+    doi: "10.5281/zenodo.17771040"
+    authors:
+      - family-names: Parsons
+        given-names: Noah
