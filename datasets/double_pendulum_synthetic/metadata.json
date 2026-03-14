@@ -1,0 +1,37 @@
+{
+  "system": "double_pendulum",
+  "description": "Synthetic double pendulum dataset generated from MechanicsDSL forward simulation in the near-periodic regime (small initial angles). Clean and noisy trajectories provided.",
+  "ground_truth": {
+    "m": 1.0,
+    "l": 1.0,
+    "g": 9.81
+  },
+  "initial_conditions": {
+    "theta1_0_rad": 0.3,
+    "theta2_0_rad": 0.2,
+    "omega1_0": 0.0,
+    "omega2_0": 0.0
+  },
+  "noise_model": {
+    "type": "gaussian",
+    "sigma": 0.005,
+    "unit": "rad",
+    "applied_to": [
+      "theta1",
+      "theta2"
+    ]
+  },
+  "sample_rate_hz": 100,
+  "duration_s": 5.0,
+  "n_observations": 501,
+  "regime": "near-periodic (small angles)",
+  "integrator": "DOP853",
+  "tolerances": {
+    "rtol": 1e-12,
+    "atol": 1e-14
+  },
+  "random_seed": 123,
+  "note": "Short duration (5s) to avoid chaotic divergence in the parameter estimation regime.",
+  "generated_by": "MechanicsDSL v2.0 \u2014 github.com/MechanicsDSL",
+  "doi": "10.5281/zenodo.17771040"
+}
