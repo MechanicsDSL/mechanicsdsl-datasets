@@ -67,10 +67,10 @@ Duration is limited to 5 s to stay in the near-periodic regime where parameter e
 ## Citation
 
 ```bibtex
-@software{mechanicsdsl2025,
+@software{mechanicsdsl2026,
   author = {Parsons, Noah},
   title  = {{MechanicsDSL}},
-  year   = {2025},
+  year   = {2026},
   doi    = {10.5281/zenodo.17771040}
 }
 ```
