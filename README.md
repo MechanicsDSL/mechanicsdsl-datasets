@@ -16,6 +16,17 @@
   <a href="https://github.com/MechanicsDSL/mechanicsdsl"><img src="https://img.shields.io/badge/core-mechanicsdsl-blue" alt="Core Package"></a>
 </p>
 
+
+## Who's Using MechanicsDSL?
+
+We can see from our download analytics that MechanicsDSL is being used across **54+ countries** and mirrored by institutions worldwide — but PyPI doesn't tell us who you are.
+
+If you're using MechanicsDSL in research, education, industry, or a personal project, we'd love to hear from you. It takes 60 seconds and helps guide the project's direction.
+
+**[→ Tell us about your use case](https://tally.so/r/XxqOqP)**
+
+*All responses are voluntary and confidential. We will not contact you without permission.*
+
 ---
 
 ## Install
