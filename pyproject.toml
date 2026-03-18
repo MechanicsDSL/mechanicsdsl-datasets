@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mechanicsdsl-datasets"
-version = "0.1.0"
+version = "0.1.1"
 description = "Reference physics datasets for MechanicsDSL parameter estimation and inverse problem benchmarking"
 readme = "README.md"
 license = { text = "MIT" }
