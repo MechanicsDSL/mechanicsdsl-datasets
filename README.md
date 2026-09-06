@@ -146,4 +146,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Experimental datasets with real sensor d
 
 ## License
 
-MIT License — see [LICENSE](LICENSE).
+MIT License; see [LICENSE](LICENSE).
