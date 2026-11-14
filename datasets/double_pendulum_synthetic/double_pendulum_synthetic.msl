@@ -1,0 +1,20 @@
+\system{double_pendulum}
+
+\defvar{theta1}{Angle of first pendulum}{rad}
+\defvar{theta2}{Angle of second pendulum}{rad}
+
+\parameter{m1}{1.0}{kg}
+\parameter{m2}{1.0}{kg}
+\parameter{L1}{1.0}{m}
+\parameter{L2}{1.0}{m}
+\parameter{g}{9.81}{m/s^2}
+
+\lagrangian{
+    0.5 * (m1 + m2) * L1^2 * \dot{theta1}^2 +
+    0.5 * m2 * L2^2 * \dot{theta2}^2 +
+    m2 * L1 * L2 * \dot{theta1} * \dot{theta2} * \cos{theta1 - theta2} +
+    (m1 + m2) * g * L1 * \cos{theta1} +
+    m2 * g * L2 * \cos{theta2}
+}
+
+\initial{theta1=0.3, theta2=0.2, theta1_dot=0.0, theta2_dot=0.0}

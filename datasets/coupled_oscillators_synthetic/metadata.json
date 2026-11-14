@@ -26,6 +26,7 @@
   "omega2_rad_s": 3.287856,
   "integrator": "DOP853",
   "random_seed": 456,
+  "dsl_specification": "coupled_oscillators_synthetic.msl",
   "generated_by": "MechanicsDSL v2.0 \u2014 github.com/MechanicsDSL",
   "doi": "10.5281/zenodo.17771040"
 }

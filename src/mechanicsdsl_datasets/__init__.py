@@ -17,9 +17,22 @@ import os
 import sys
 
 from mechanicsdsl_datasets._loader import load, list_datasets, Dataset
+from mechanicsdsl_datasets._generate import (
+    GeneratedSeries,
+    add_noise,
+    generate_series,
+)
 from mechanicsdsl_datasets._version import __version__
 
-__all__ = ["load", "list_datasets", "Dataset", "__version__"]
+__all__ = [
+    "load",
+    "list_datasets",
+    "Dataset",
+    "generate_series",
+    "add_noise",
+    "GeneratedSeries",
+    "__version__",
+]
 
 
 def _show_survey_banner():

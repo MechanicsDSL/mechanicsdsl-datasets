@@ -7,11 +7,15 @@ Run with:
     pytest tests/test_datasets.py -v
 """
 import json
-import h5py
 import numpy as np
 import pandas as pd
 import pytest
 from pathlib import Path
+
+try:
+    import h5py
+except ImportError:
+    h5py = None
 
 ROOT = Path(__file__).parent.parent
 DATASETS = sorted([d for d in (ROOT / "datasets").iterdir() if d.is_dir()])
@@ -46,6 +50,7 @@ def test_csv_row_count_matches_metadata(dataset):
     )
 
 
+@pytest.mark.skipif(h5py is None, reason="h5py not installed")
 @pytest.mark.parametrize("dataset", DATASETS, ids=[d.name for d in DATASETS])
 def test_hdf5_attributes_match_metadata(dataset):
     meta = json.load(open(dataset / "metadata.json"))

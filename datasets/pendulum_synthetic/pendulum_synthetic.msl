@@ -1,0 +1,11 @@
+\system{simple_pendulum}
+
+\defvar{theta}{Angle from vertical}{rad}
+
+\parameter{m}{1.0}{kg}
+\parameter{l}{0.5}{m}
+\parameter{g}{9.81}{m/s^2}
+
+\lagrangian{0.5*m*l^2*\dot{theta}^2 - m*g*l*(1-\cos{theta})}
+
+\initial{theta=0.5, theta_dot=0.0}

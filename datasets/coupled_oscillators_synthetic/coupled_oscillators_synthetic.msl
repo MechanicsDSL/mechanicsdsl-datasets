@@ -1,0 +1,17 @@
+\system{coupled_pendulums}
+
+\defvar{theta1}{Angle of first pendulum}{rad}
+\defvar{theta2}{Angle of second pendulum}{rad}
+
+\parameter{m}{1.0}{kg}
+\parameter{l}{1.0}{m}
+\parameter{k}{0.5}{N/rad}
+\parameter{g}{9.81}{m/s^2}
+
+\lagrangian{
+    0.5*m*l^2*\dot{theta1}^2 + 0.5*m*l^2*\dot{theta2}^2
+    - m*g*l*(1-\cos{theta1}) - m*g*l*(1-\cos{theta2})
+    - 0.5*k*(theta1-theta2)^2
+}
+
+\initial{theta1=0.3, theta2=0.0, theta1_dot=0.0, theta2_dot=0.0}

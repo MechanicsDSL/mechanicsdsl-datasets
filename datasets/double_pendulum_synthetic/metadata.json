@@ -32,6 +32,7 @@
   },
   "random_seed": 123,
   "note": "Short duration (5s) to avoid chaotic divergence in the parameter estimation regime.",
+  "dsl_specification": "double_pendulum_synthetic.msl",
   "generated_by": "MechanicsDSL v2.0 \u2014 github.com/MechanicsDSL",
   "doi": "10.5281/zenodo.17771040"
 }
