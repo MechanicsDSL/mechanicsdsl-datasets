@@ -12,7 +12,8 @@ metadata)::
 
 Noise is added to the positions listed in ``noise_model.applied_to`` with
 ``RandomState(random_seed)`` drawn as one ``(n_channels, n_samples)`` array,
-so regeneration is bit-identical given the same metadata.
+so regeneration is exact on one platform and agrees to ~1e-12 across
+platforms (libm and numpy builds differ in the last printed decimal).
 """
 
 from __future__ import annotations

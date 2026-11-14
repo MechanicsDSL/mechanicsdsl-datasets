@@ -4,7 +4,16 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Only open a PR when a new release falls outside the allowed range;
+    # never raise a library's minimum supported version for its users.
+    versioning-strategy: increase-if-necessary
+    groups:
+      python-deps:
+        patterns: ["*"]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      actions:
+        patterns: ["*"]

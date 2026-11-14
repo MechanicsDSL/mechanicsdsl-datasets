@@ -59,7 +59,18 @@ def test_new_datasets_rebuild_identically(name, tmp_path):
     ds = mds.load(name)
     out = tmp_path / "rebuilt.csv"
     mds.build_dataset(str(ds._dir), out_csv=str(out))
-    assert out.read_text() == (ds._dir / "data.csv").read_text()
+    _assert_same_csv(out, ds._dir / "data.csv")
+
+
+def _assert_same_csv(a, b, tol=1e-10):
+    """Same columns and values. Exact bytes are not portable: libm and
+    numpy builds differ in the last printed (12th) decimal across platforms."""
+    import pandas as pd
+
+    da, db = pd.read_csv(a), pd.read_csv(b)
+    assert list(da.columns) == list(db.columns)
+    assert da.shape == db.shape
+    assert np.max(np.abs(da.values - db.values)) < tol
 
 
 def test_damped_dataset_loses_energy():
@@ -162,5 +173,4 @@ def test_cli_export_and_regenerate(tmp_path):
     assert len(np.load(out)["t_s"]) == 201
     regen = tmp_path / "regen.csv"
     assert cli_main(["regenerate", "damped_oscillator_synthetic", "--out", str(regen)]) == 0
-    assert regen.read_text() == (mds.load("damped_oscillator_synthetic")._dir
-                                 / "data.csv").read_text()
+    _assert_same_csv(regen, mds.load("damped_oscillator_synthetic")._dir / "data.csv")
