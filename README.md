@@ -37,8 +37,15 @@ git clone https://github.com/MechanicsDSL/mechanicsdsl-datasets
 | [`pendulum_synthetic`](datasets/pendulum_synthetic/) | Simple pendulum | 1,001 | 100 Hz | 0.010 rad | m=1.0, l=0.5, g=9.81 |
 | [`double_pendulum_synthetic`](datasets/double_pendulum_synthetic/) | Double pendulum (near-periodic) | 501 | 100 Hz | 0.005 rad | m=1.0, l=1.0, g=9.81 |
 | [`coupled_oscillators_synthetic`](datasets/coupled_oscillators_synthetic/) | Coupled pendulums (3 beat periods) | 2,001 | 100 Hz | 0.005 rad | m=1.0, l=1.0, k=0.5 |
+| [`damped_oscillator_synthetic`](datasets/damped_oscillator_synthetic/) (new) | Damped mass-spring (non-conservative) | 801 | 100 Hz | 0.005 m | m=1.0, k=10.0, b=0.5 |
+| [`double_pendulum_chaotic_synthetic`](datasets/double_pendulum_chaotic_synthetic/) (new) | Double pendulum, large angles (chaotic) | 301 | 100 Hz | 0.002 rad | m₁=m₂=1, l₁=l₂=1, g=9.81 |
 
-All datasets include clean trajectories, Gaussian-noisy observations, HDF5 with embedded metadata, and paired estimation/validation scripts.
+All datasets include clean trajectories, Gaussian-noisy observations, the
+`.msl` spec they come from, and a `metadata.json` with integrator, tolerances
+and seed. The original three also ship HDF5 files and per-dataset
+estimation/validation scripts. Four of the five reproduce from their `.msl`
+through `mechanicsdsl-core`; `double_pendulum_synthetic` does not (see
+[datasets/PROVENANCE.md](datasets/PROVENANCE.md)).
 
 ---
 
@@ -51,10 +58,45 @@ import mechanicsdsl_datasets as mds
 dataset = mds.load("pendulum_synthetic")
 print(dataset.ground_truth)    # {'m': 1.0, 'l': 0.5, 'g': 9.81}
 print(dataset.t.shape)         # (1001,)
-print(dataset.theta_noisy[:5]) # noisy observations
+print(dataset.theta_rad_noisy[:5])  # noisy observations
 
-# Run built-in validation
-dataset.validate()             # confirms forward simulation matches clean data
+# Re-derive the clean data from the bundled .msl through mechanicsdsl-core
+result = dataset.validate()    # truthy ValidationResult with per-column max error
+
+# Variants for robustness studies
+loud = dataset.with_noise(0.05, seed=1)   # re-drawn noise, same clean signal
+coarse = dataset.subsample(5)             # 20 Hz instead of 100 Hz
+train, test = dataset.split(0.8)          # chronological split for forecasting
+dataset.export("pendulum.npz")            # also .csv / .json
+```
+
+## Benchmarking an estimator
+
+```python
+# Grade your estimates against ground truth
+print(mds.score("pendulum_synthetic", {"g": 9.79}).table())
+
+# Reference baseline: least squares through the dataset's own DSL model
+r = mds.baseline_estimate("damped_oscillator_synthetic")
+r.estimates, r.standard_errors      # {'k': 9.999, 'b': 0.4996}, {'k': 1.3e-3, 'b': 4.1e-4}
+```
+
+`ds.estimable` lists the parameters identifiable from the observations (for a
+pendulum only g/l is, so l is held at truth and g fitted). The baseline fits in
+log space, warm-starts on a short prefix of the record to avoid wrong-frequency
+local minima, and reports standard errors from the Jacobian. On every
+reproducible dataset it recovers the truth within four standard errors, with
+residual RMS at the noise level.
+
+The same tools from the shell:
+
+```bash
+mechanicsdsl-datasets list
+mechanicsdsl-datasets validate --all
+mechanicsdsl-datasets baseline pendulum_synthetic
+mechanicsdsl-datasets score pendulum_synthetic g=9.79
+mechanicsdsl-datasets export pendulum_synthetic noisy.csv --noise 0.02 --seed 3
+mechanicsdsl-datasets regenerate damped_oscillator_synthetic
 ```
 
 ---

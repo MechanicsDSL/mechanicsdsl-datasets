@@ -1,0 +1,45 @@
+{
+  "integrator": "DOP853",
+  "tolerances": {
+    "rtol": 1e-12,
+    "atol": 1e-14
+  },
+  "format": 2,
+  "sample_rate_hz": 100,
+  "files": {
+    "data.csv": "Time series: clean positions, clean velocities, noisy positions"
+  },
+  "generated_by": "mechanicsdsl-datasets 0.2.0 (build_dataset) with mechanicsdsl-core 2.1.4",
+  "doi": "10.5281/zenodo.17771040",
+  "system": "damped_oscillator",
+  "description": "Damped mass-spring oscillator (viscous damping b*x_dot). Non-conservative: energy decays, so it benchmarks dissipation estimation.",
+  "coordinates": [
+    "x"
+  ],
+  "ground_truth": {
+    "m": 1.0,
+    "k": 10.0,
+    "b": 0.5
+  },
+  "initial_conditions": {
+    "x_0_m": 1.0,
+    "v_0_m_s": 0.0
+  },
+  "noise_model": {
+    "type": "gaussian",
+    "sigma": 0.005,
+    "unit": "m",
+    "applied_to": [
+      "x"
+    ]
+  },
+  "duration_s": 8.0,
+  "n_observations": 801,
+  "random_seed": 2026,
+  "estimable": [
+    "k",
+    "b"
+  ],
+  "note": "m is not identifiable jointly with k and b from x(t) alone; hold it at truth.",
+  "dsl_specification": "damped_oscillator_synthetic.msl"
+}

@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.2.0] - 2026-11-14
+
+### Added
+- New datasets `damped_oscillator_synthetic` (non-conservative) and `double_pendulum_chaotic_synthetic` (chaotic regime), both reproducible from their `.msl` via `build_dataset()`.
+- Benchmark tools: `score()`, and `baseline_estimate()`, a least-squares reference estimator through the dataset's own DSL model with standard errors.
+- `Dataset.validate()` works for every dataset: it re-derives the clean data from the `.msl` through core and returns a `ValidationResult`.
+- `with_noise()`, `subsample()`, `split()`, `observations()`, `export()` (.csv/.json/.npz), and the `channels`, `estimable` and `reproducible` properties.
+- `mechanicsdsl-datasets` CLI: `list`, `info`, `validate`, `baseline`, `score`, `export`, `regenerate`.
+
+### Fixed
+- `generate_series()` read core's interleaved state vector positionally, returning `q1_dot` as "q2" for every multi-DOF system. With this fixed, **`coupled_oscillators_synthetic` is verified**: clean and noisy columns reproduce to CSV precision (see `datasets/PROVENANCE.md`).
+- The wheel did not include the data, so `load()` failed after `pip install`; datasets now ship as package data.
+- `load()` looked for a local clone one directory above the repository.
+
+### Changed
+- `Dataset.validate()` returns a truthy `ValidationResult` instead of raising (pass `raise_on_fail=True` for the old behaviour).
+
+### Infrastructure
+- CI workflow: pytest on Python 3.9-3.12 (Linux) plus Windows and macOS, a syntax/undefined-name lint, and an sdist/wheel build check.
+- Dependabot (pip and GitHub Actions), issue and PR templates, pre-commit config, `SECURITY.md`, `CODE_OF_CONDUCT.md`.
+- Single-source version (`_version.py`, read by hatch); requires `mechanicsdsl-core>=2.1.4`.
+
 ## [Unreleased]
 
 ### Added

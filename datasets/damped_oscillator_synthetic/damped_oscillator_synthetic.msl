@@ -1,0 +1,8 @@
+\system{damped_oscillator}
+\defvar{x}{Displacement}{m}
+\parameter{m}{1.0}{kg}
+\parameter{k}{10.0}{N/m}
+\parameter{b}{0.5}{N*s/m}
+\lagrangian{\frac{1}{2}*m*\dot{x}^2 - \frac{1}{2}*k*x^2}
+\force{-b*\dot{x}}
+\initial{x=1.0, x_dot=0.0}

@@ -19,7 +19,7 @@ except ImportError:
 
 ROOT = Path(__file__).parent.parent
 DATASETS = sorted([d for d in (ROOT / "datasets").iterdir() if d.is_dir()])
-REQUIRED_FILES = ["data.csv", "data.hdf5", "metadata.json", "README.md"]
+REQUIRED_FILES = ["data.csv", "metadata.json", "README.md"]
 REQUIRED_META_KEYS = ["system", "ground_truth", "initial_conditions",
                       "noise_model", "sample_rate_hz", "duration_s",
                       "n_observations", "integrator"]
@@ -27,7 +27,11 @@ REQUIRED_META_KEYS = ["system", "ground_truth", "initial_conditions",
 
 @pytest.mark.parametrize("dataset", DATASETS, ids=[d.name for d in DATASETS])
 def test_required_files_present(dataset):
-    for fname in REQUIRED_FILES:
+    meta = json.load(open(dataset / "metadata.json"))
+    # Every file the metadata advertises must exist (data.hdf5 is only shipped
+    # by the original three datasets).
+    required = set(REQUIRED_FILES) | set(meta.get("files", {})) | {meta["dsl_specification"]}
+    for fname in sorted(required):
         assert (dataset / fname).exists(), f"Missing {fname} in {dataset.name}"
 
 
@@ -54,6 +58,8 @@ def test_csv_row_count_matches_metadata(dataset):
 @pytest.mark.parametrize("dataset", DATASETS, ids=[d.name for d in DATASETS])
 def test_hdf5_attributes_match_metadata(dataset):
     meta = json.load(open(dataset / "metadata.json"))
+    if "data.hdf5" not in meta.get("files", {}):
+        pytest.skip("dataset ships no HDF5 file")
     with h5py.File(dataset / "data.hdf5", "r") as f:
         assert f.attrs["sample_rate"] == meta["sample_rate_hz"]
         assert abs(f.attrs["duration_s"] - meta["duration_s"]) < 0.01

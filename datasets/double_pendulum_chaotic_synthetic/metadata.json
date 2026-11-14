@@ -1,0 +1,50 @@
+{
+  "integrator": "DOP853",
+  "tolerances": {
+    "rtol": 1e-12,
+    "atol": 1e-14
+  },
+  "format": 2,
+  "sample_rate_hz": 100,
+  "files": {
+    "data.csv": "Time series: clean positions, clean velocities, noisy positions"
+  },
+  "generated_by": "mechanicsdsl-datasets 0.2.0 (build_dataset) with mechanicsdsl-core 2.1.4",
+  "doi": "10.5281/zenodo.17771040",
+  "system": "double_pendulum_chaotic",
+  "description": "Double pendulum released from large angles (theta1=2.5, theta2=2.0 rad): chaotic regime. A hard benchmark: short horizon, high sensitivity to parameters and initial state.",
+  "coordinates": [
+    "theta1",
+    "theta2"
+  ],
+  "ground_truth": {
+    "m1": 1.0,
+    "m2": 1.0,
+    "l1": 1.0,
+    "l2": 1.0,
+    "g": 9.81
+  },
+  "initial_conditions": {
+    "theta1_0_rad": 2.5,
+    "theta2_0_rad": 2.0,
+    "omega1_0": 0.0,
+    "omega2_0": 0.0
+  },
+  "noise_model": {
+    "type": "gaussian",
+    "sigma": 0.002,
+    "unit": "rad",
+    "applied_to": [
+      "theta1",
+      "theta2"
+    ]
+  },
+  "duration_s": 3.0,
+  "n_observations": 301,
+  "random_seed": 7,
+  "regime": "chaotic (large angles)",
+  "estimable": [
+    "g"
+  ],
+  "dsl_specification": "double_pendulum_chaotic_synthetic.msl"
+}

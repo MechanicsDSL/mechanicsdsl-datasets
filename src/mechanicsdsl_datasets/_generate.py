@@ -93,9 +93,13 @@ def generate_series(
 
     coords = sol["coordinates"]
     y = sol["y"]
-    n = len(coords)
-    clean = {c: y[i] for i, c in enumerate(coords)}
-    velocities = {c: y[n + i] for i, c in enumerate(coords)}
+    # core's state vector is interleaved [q1, q1_dot, q2, q2_dot, ...]; look
+    # rows up by name. (Indexing by position silently returned q1_dot as
+    # "q2" for every multi-DOF system before 0.2.0.)
+    state_vars = list(sol.get("state_vars") or
+                      [v for c in coords for v in (c, f"{c}_dot")])
+    clean = {c: y[state_vars.index(c)] for c in coords}
+    velocities = {c: y[state_vars.index(f"{c}_dot")] for c in coords}
 
     channels = noise_channels or coords
     noisy: Dict[str, np.ndarray] = {}

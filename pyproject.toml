@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mechanicsdsl-datasets"
-version = "0.1.1"
+dynamic = ["version"]
 description = "Reference physics datasets for MechanicsDSL parameter estimation and inverse problem benchmarking"
 readme = "README.md"
 license = { text = "MIT" }
@@ -38,13 +38,17 @@ dependencies = [
 
 [project.optional-dependencies]
 estimation = [
-  "mechanicsdsl-core",
+  "mechanicsdsl-core>=2.1.4",
 ]
 dev = [
+  "mechanicsdsl-core>=2.1.4",
   "pytest>=7.0",
   "pytest-cov",
   "ruff",
 ]
+
+[project.scripts]
+mechanicsdsl-datasets = "mechanicsdsl_datasets.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/MechanicsDSL/mechanicsdsl-datasets"
@@ -53,8 +57,14 @@ Repository = "https://github.com/MechanicsDSL/mechanicsdsl-datasets"
 "Bug Tracker" = "https://github.com/MechanicsDSL/mechanicsdsl-datasets/issues"
 DOI = "https://doi.org/10.5281/zenodo.17771040"
 
+[tool.hatch.version]
+path = "src/mechanicsdsl_datasets/_version.py"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/mechanicsdsl_datasets"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"datasets" = "mechanicsdsl_datasets/data"
 
 [tool.hatch.build.targets.sdist]
 include = [

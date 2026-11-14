@@ -1,0 +1,18 @@
+\system{double_pendulum_chaotic}
+
+\defvar{theta1}{Angle of first pendulum}{rad}
+\defvar{theta2}{Angle of second pendulum}{rad}
+
+\parameter{m1}{1.0}{kg}
+\parameter{m2}{1.0}{kg}
+\parameter{l1}{1.0}{m}
+\parameter{l2}{1.0}{m}
+\parameter{g}{9.81}{m/s^2}
+
+\lagrangian{
+    0.5*(m1 + m2)*l1^2*\dot{theta1}^2 + 0.5*m2*l2^2*\dot{theta2}^2
+    + m2*l1*l2*\dot{theta1}*\dot{theta2}*\cos{theta1 - theta2}
+    + (m1 + m2)*g*l1*\cos{theta1} + m2*g*l2*\cos{theta2}
+}
+
+\initial{theta1=2.5, theta2=2.0, theta1_dot=0.0, theta2_dot=0.0}

@@ -12,8 +12,9 @@ authors:
     orcid: "https://orcid.org/0009-0000-7224-6040"
     affiliation: "American Forge Institute & Eastern Wyoming College"
 repository-code: "https://github.com/MechanicsDSL/mechanicsdsl-datasets"
+version: "0.2.0"
 license: MIT
-date-released: "2026-03-13"
+date-released: "2026-11-14"
 references:
   - type: software
     title: "MechanicsDSL"
